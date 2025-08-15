@@ -1,0 +1,24 @@
+{
+	"name": "LS_Snowflake",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SnowflakeV2",
+		"typeProperties": {
+			"authenticationType": "Basic",
+			"accountIdentifier": "owa15299.east-us-2.azure",
+			"user": "VIJAYASAI",
+			"database": "TESTVJ",
+			"warehouse": "COMPUTE_WH",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "LS_AKV",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "snowflakepassword"
+			}
+		},
+		"version": "1.1"
+	}
+}

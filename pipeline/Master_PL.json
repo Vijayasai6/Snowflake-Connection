@@ -1,0 +1,95 @@
+{
+	"name": "Master_PL",
+	"properties": {
+		"activities": [
+			{
+				"name": "SnowflaketoADLS",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_Snowflake_to_ADLSGen2",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "ADLS2Snowflake",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "SnowflaketoADLS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_ADLSGen2_to_Snowflake",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "BlobtoSnowflake",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "ADLS2Snowflake",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_Blob_Snowflake",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Snowflake2Blob",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "BlobtoSnowflake",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_Snowflake_Blob",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2025-08-15T10:11:44Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

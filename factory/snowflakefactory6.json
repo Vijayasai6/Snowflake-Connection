@@ -1,0 +1,9 @@
+{
+	"name": "snowflakefactory6",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "b456efc1-0a8f-43be-93c2-97ee51edd121",
+		"tenantId": "ce47df2b-1985-40f5-b0b3-c738019754ce"
+	}
+}
